@@ -21,7 +21,9 @@ print(f"\n- Students who passed and have grade > 80:\n{filtered_df}")
 
 print("\n# Pandas Q3")
 df["grade_curved"] = df["grade"] + 5
-print(f"\n- Updated DataFrame with new column 'grade_curved' (5 points added to each grade):\n{df}")
+print(
+    f"\n- Updated DataFrame with new column 'grade_curved' (5 points added to each grade):\n{df}"
+)
 
 print("\n# Pandas Q4")
 df["name_upper"] = df["name"].str.upper()
@@ -40,3 +42,91 @@ print("\n# Pandas Q7")
 sorted_df = df.sort_values(by="grade", ascending=False)
 top3 = sorted_df.head(3)
 print(f"\n- Top 3 students by grade:\n{top3}")
+
+print("\n\n# --- NumPy ---")
+import numpy as np
+
+print("\n# NumPy Q1")
+arr = np.array([10, 20, 30, 40, 50])
+print(f"\n- Shape: {arr.shape}")
+print(f"- Dtype: {arr.dtype}")
+print(f"- Number of dimensions: {arr.ndim}")
+
+print("\n# NumPy Q2")
+
+arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+print(f"\n- Shape: {arr.shape}")
+print(f"- Size (total elements): {arr.size}")
+
+print("\n# NumPy Q3")
+top_left = arr[:2, :2]
+print(f"\n- Sliced out the top-left 2x2 block : \n{top_left}")
+
+print("\n# NumPy Q4")
+zeros_array = np.zeros((3, 4))
+ones_array = np.ones((2, 5))
+print(f"\n- 3x4 array of zeros:\n{zeros_array}")
+print(f"\n- 2x5 array of ones:\n{ones_array}")
+
+print("\n# NumPy Q5")
+arr = np.arange(0, 50, 5)
+print(f"\n- Array: {arr}")
+print(f"- Shape: {arr.shape}")
+print(f"- Mean: {arr.mean()}")
+print(f"- Sum: {arr.sum()}")
+print(f"- Standard Deviation: {arr.std()}")
+
+print("\n# NumPy Q6")
+arr = np.random.normal(loc=0, scale=1, size=200)
+# print(f"\n- Array: {arr}")
+print(f"Mean: {arr.mean()}")
+print(f"Standard Deviation: {arr.std()}")
+
+print("\n\n# --- Matplotlib ---")
+import matplotlib.pyplot as plt
+
+print("\n# Matplotlib Q1")
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+plt.plot(x, y)
+plt.title("Squares")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+
+print("\n# Matplotlib Q2")
+subjects = ["Math", "Science", "English", "History"]
+scores = [88, 92, 75, 83]
+
+plt.bar(subjects, scores)
+plt.title("Subject Scores")
+plt.xlabel("Subjects")
+plt.ylabel("Scores")
+plt.show()
+
+print("\n# Matplotlib Q3")
+x1, y1 = [1, 2, 3, 4, 5], [2, 4, 5, 4, 5]
+x2, y2 = [1, 2, 3, 4, 5], [5, 4, 3, 2, 1]
+plt.scatter(x1, y1, color="blue", label="Dataset 1")
+plt.scatter(x2, y2, color="orange", label="Dataset 2")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend()
+plt.show()
+
+print("\n# Matplotlib Q4")
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
+
+ax1.plot(x, y)
+ax1.set_title("Squares")
+ax1.set_xlabel("x")
+ax1.set_ylabel("y")
+
+ax2.bar(subjects, scores)
+ax2.set_title("Subject Scores")
+ax2.set_xlabel("Subjects")
+ax2.set_ylabel("Scores")
+plt.tight_layout()
+plt.show()
