@@ -130,3 +130,60 @@ ax2.set_xlabel("Subjects")
 ax2.set_ylabel("Scores")
 plt.tight_layout()
 plt.show()
+
+print("\n\n# --- Descriptive Statistics ---")
+
+print("\n# Descriptive Stats Q1")
+data = [12, 15, 14, 10, 18, 22, 13, 16, 14, 15]
+arr = np.array(data)
+print(f"\n- Mean: {np.mean(arr)}")
+print(f"- Median: {np.median(arr)}")
+print(f"- Variance: {np.var(arr)}")
+print(f"- Standard Deviation: {np.std(arr)}")
+
+print("\n# Descriptive Stats Q2")
+scores = np.random.normal(65, 10, 500)
+plt.hist(scores, bins=20)
+plt.title("Distribution of Scores")
+plt.xlabel("Score")
+plt.ylabel("Frequency")
+plt.show()
+
+print("\n# Descriptive Stats Q3")
+group_a = [55, 60, 63, 70, 68, 62, 58, 65]
+group_b = [75, 80, 78, 90, 85, 79, 82, 88]
+
+plt.boxplot([group_a, group_b], labels=["Group A", "Group B"])
+plt.title("Score Comparison")
+plt.ylabel("Score")
+plt.show()
+
+print("\n# Descriptive Stats Q4")
+normal_data = np.random.normal(50, 5, 200)
+skewed_data = np.random.exponential(10, 200)
+
+plt.boxplot([normal_data, skewed_data], labels=["Normal", "Exponential"])
+plt.title("Distribution Comparison")
+plt.ylabel("Value")
+plt.show()
+
+# Exponential distribution is more skewed (right-skewed).
+# Mean is better for normal data, median is better for skewed data.
+
+print("\n# Descriptive Stats Q5")
+data1 = [10, 12, 12, 16, 18]
+data2 = [10, 12, 12, 16, 150]
+
+import statistics as stats
+
+print("Data1 Statistics:")
+print("Mode:", stats.mode(data1))
+print("Mean:", np.mean(data1))
+print("Median:", np.median(data1))
+
+print("\nData2 Statistics:")
+print("Mode:", stats.mode(data2))
+print("Mean:", np.mean(data2))
+print("Median:", np.median(data2))  
+# Why are the median and mean so different for data2?
+# The mean is sensitive to outliers (like the value 150), while the median is not.
