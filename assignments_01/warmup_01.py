@@ -153,7 +153,7 @@ print("\n# Descriptive Stats Q3")
 group_a = [55, 60, 63, 70, 68, 62, 58, 65]
 group_b = [75, 80, 78, 90, 85, 79, 82, 88]
 
-plt.boxplot([group_a, group_b], labels=["Group A", "Group B"])
+plt.boxplot([group_a, group_b], tick_labels=["Group A", "Group B"])
 plt.title("Score Comparison")
 plt.ylabel("Score")
 plt.show()
@@ -162,7 +162,7 @@ print("\n# Descriptive Stats Q4")
 normal_data = np.random.normal(50, 5, 200)
 skewed_data = np.random.exponential(10, 200)
 
-plt.boxplot([normal_data, skewed_data], labels=["Normal", "Exponential"])
+plt.boxplot([normal_data, skewed_data], tick_labels=["Normal", "Exponential"])
 plt.title("Distribution Comparison")
 plt.ylabel("Value")
 plt.show()
@@ -184,6 +184,131 @@ print("Median:", np.median(data1))
 print("\nData2 Statistics:")
 print("Mode:", stats.mode(data2))
 print("Mean:", np.mean(data2))
-print("Median:", np.median(data2))  
+print("Median:", np.median(data2))
 # Why are the median and mean so different for data2?
 # The mean is sensitive to outliers (like the value 150), while the median is not.
+
+print("\n\n# --- Hypothesis Testing ---")
+
+print("\n# Hypothesis Q1")
+from scipy import stats
+
+group_a = [72, 68, 75, 70, 69, 73, 71, 74]
+group_b = [80, 85, 78, 83, 82, 86, 79, 84]
+
+t_stat, p_value = stats.ttest_ind(group_a, group_b)
+
+print(f"T-statistic: {t_stat}")
+print(f"P-value: {p_value}")
+
+print("\n# Hypothesis Q2")
+alpha = 0.05
+if p_value < alpha:
+    print("The result is statistically significant.")
+else:
+    print("The result is not statistically significant.")
+
+print("\n# Hypothesis Q3")
+before = [60, 65, 70, 58, 62, 67, 63, 66]
+after = [68, 70, 76, 65, 69, 72, 70, 71]
+
+t_stat, p_value = stats.ttest_rel(before, after)
+print(f"T-statistic: {t_stat}")
+print(f"P-value: {p_value}")
+
+print("\n# Hypothesis Q4")
+scores = [72, 68, 75, 70, 69, 74, 71, 73]
+t_stat_1samp, p_val_1samp = stats.ttest_1samp(scores, popmean=70)
+print(f"T-statistic: {t_stat_1samp}")
+print(f"P-value: {p_val_1samp}")
+
+print("\n# Hypothesis Q5")
+t_stat_one_tail, p_val_one_tail = stats.ttest_ind(group_a, group_b, alternative="less")
+print(f"P-value: {p_val_one_tail}")
+
+print("\n# Hypothesis Q6")
+print(
+    "Group B scores are consistently higher than Group A scores, and the difference is very unlikely to be due to chance (statistically significant)."
+)
+
+print("\n\n# --- Correlation ---")
+
+print("\n# Correlation Q1")
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+
+corr_matrix = np.corrcoef(x, y)
+print(f"Correlation Matrix:\n{corr_matrix}")
+print(f"Correlation Coefficient: {corr_matrix[0, 1]}")
+# Expectation: 1.0, because y = 2x is a perfect positive linear relationship.
+
+print("\n# Correlation Q2")
+from scipy.stats import pearsonr
+
+x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+y = [10, 9, 7, 8, 6, 5, 3, 4, 2, 1]
+
+corr, p_value = pearsonr(x, y)
+print(f"Correlation Coefficient: {corr}")
+print(f"P-value: {p_value}")
+
+print("\n# Correlation Q3")
+people = {
+    "height": [160, 165, 170, 175, 180],
+    "weight": [55, 60, 65, 72, 80],
+    "age": [25, 30, 22, 35, 28],
+}
+df_people = pd.DataFrame(people)
+print(f"Correlation:\n{df_people.corr()}")
+
+print("\n# Correlation Q4")
+x = [10, 20, 30, 40, 50]
+y = [90, 75, 60, 45, 30]
+plt.scatter(x, y)
+plt.title("Negative Correlation")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.show()
+
+print("\n# Correlation Q5")
+import seaborn as sns
+
+sns.heatmap(df_people.corr(), annot=True)
+plt.title("Correlation Heatmap")
+plt.show()
+
+print("\n\n# --- Pipelines ---")
+print("\n# Pipeline Q1")
+
+arr = np.array(
+    [12.0, 15.0, np.nan, 14.0, 10.0, np.nan, 18.0, 14.0, 16.0, 22.0, np.nan, 13.0]
+)
+
+
+def create_series(arr):
+    return pd.Series(arr, name="values")
+
+
+def clean_data(series):
+    return series.dropna()
+
+
+def summarize_data(series):
+    return {
+        "mean": series.mean(),
+        "median": series.median(),
+        "std": series.std(),
+        "mode": series.mode()[0],
+    }
+
+
+def data_pipeline(arr):
+    series = create_series(arr)
+    cleaned_series = clean_data(series)
+    summary = summarize_data(cleaned_series)
+    return summary
+
+
+results = data_pipeline(arr)
+for key, value in results.items():
+    print(f"{key}: {value}")
